@@ -278,6 +278,9 @@ func (c *consulRegistry) Register(s *registry.Service, opts ...registry.Register
 		}
 	}
 
+	// 服务注册前调用回调（为了更新Tags）
+	onRegistry(asr)
+
 	if err := c.Client().Agent().ServiceRegister(asr); err != nil {
 		return err
 	}
